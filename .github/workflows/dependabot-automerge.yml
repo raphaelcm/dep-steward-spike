@@ -17,7 +17,7 @@ permissions:
 
 jobs:
   gate:
-    uses: raphaelcm/dep-steward/.github/workflows/automerge.yml@d75206809d39029a9ae6abd2582e300ad7851c16 # v0.18.1
+    uses: raphaelcm/dep-steward/.github/workflows/automerge.yml@3caa96d8a3d6b2d7cbe1954930b46e37306b0fc7 # v0.18.1
     with:
       ci-name: "CI"
       assignee: "raphaelcm"
