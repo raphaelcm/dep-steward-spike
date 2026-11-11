@@ -1,0 +1,11 @@
+name: probe-run
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+jobs:
+  probe:
+    uses: raphaelcm/dep-steward/.github/workflows/probe.yml@spike/reusable-mechanics
+    with:
+      label: workflow_run
+    secrets: inherit
