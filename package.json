@@ -1,0 +1,7 @@
+{
+  "name": "dep-steward-spike",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": { "test": "node -e \"require('semver'); require('chalk'); console.log('ok')\"" },
+  "dependencies": { "semver": "7.5.0", "chalk": "4.1.2" }
+}

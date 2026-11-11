@@ -1,8 +1,0 @@
-name: probe-dispatch
-on: workflow_dispatch
-jobs:
-  probe:
-    uses: raphaelcm/dep-steward/.github/workflows/probe.yml@spike/reusable-mechanics
-    with:
-      label: workflow_dispatch
-    secrets: inherit

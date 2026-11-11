@@ -1,0 +1,43 @@
+# dep-steward: Claude reviews each Dependabot PR, and fixes small CI breaks.
+# The pipeline itself lives in raphaelcm/dep-steward at the commit pinned
+# below; Dependabot proposes new versions, and the auto-merge gate always
+# leaves those to a person. Settings are the `with:` values.
+name: Dependabot PR review
+# A replay names its PR, so the auto-merge workflow can wake for it.
+run-name: "${{ inputs.pr_number && format('Dependabot PR review of #{0}', inputs.pr_number) || '' }}"
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: PR number to review (manual replay against an existing Dependabot PR)
+        required: true
+        type: number
+  # Autofix wakes when CI fails on a Dependabot PR.
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+
+# The most any dep-steward job here needs; each job takes less.
+permissions:
+  contents: write
+  pull-requests: write
+  checks: read
+  actions: read
+
+jobs:
+  review:
+    uses: raphaelcm/dep-steward/.github/workflows/review.yml@e44b43c4b102a91d929892eb14c0e4787f52f420 # v0.18.0
+    with:
+      pr_number: ${{ inputs.pr_number && format('{0}', inputs.pr_number) || '' }}
+      model: claude-opus-4-8
+      assignee: "raphaelcm"
+      autofix: true
+      regenerate-command: ""
+      regenerate-paths: ""
+      regenerate-env: ""
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      DEP_STEWARD_PUSH_TOKEN: ${{ secrets.DEP_STEWARD_PUSH_TOKEN }}

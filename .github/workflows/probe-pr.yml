@@ -1,8 +1,0 @@
-name: probe-pr
-on: pull_request
-jobs:
-  probe:
-    uses: raphaelcm/dep-steward/.github/workflows/probe.yml@spike/reusable-mechanics
-    with:
-      label: pull_request
-    secrets: inherit

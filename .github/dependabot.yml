@@ -1,6 +1,24 @@
 version: 2
 updates:
+  # One entry per package manager at the repo root, plus github-actions.
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    groups:
+      npm-minor-patch:
+        update-types:
+          - minor
+          - patch
+
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: daily
+      interval: weekly
+      day: monday
+    groups:
+      actions-minor-patch:
+        update-types:
+          - minor
+          - patch
