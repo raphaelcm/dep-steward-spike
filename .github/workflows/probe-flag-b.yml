@@ -1,0 +1,16 @@
+name: probe-flag-b (one named secret to dep-steward's action)
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  b:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: raphaelcm/dep-steward/actions/seal@d75206809d39029a9ae6abd2582e300ad7851c16
+        with:
+          ci-name: CI
+          public-key: a2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2s=
+          secrets: '{"SPIKE_CI_ONLY": "${{ secrets.SPIKE_CI_ONLY }}"}'
